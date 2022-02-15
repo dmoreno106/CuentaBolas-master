@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CuentaBolas</string>
+    <string name="tv_cuenta_bolas">Cuenta Bolas</string>
+    <string name="bt_easy">Easy</string>
+    <string name="bt_normal">Normal</string>
+    <string name="bt_hard">Hard</string>
+    <string name="tv_dificulty">Select a game mode</string>
+    <string name="ready">Are U Ready?</string>
+    <string name="tv_cuantas">¿Cuantas Bolas has contado?</string>
+    <string name="bt_aceptar">Aceptar</string>
+    <string name="tv_azul">Azul</string>
+    <string name="tv_rojo">Rojo</string>
+    <string name="tv_verde">Verde</string>
+    <string name="tv_rosa">Rosa</string>
+    <string name="tv_magenta">Magenta</string>
+</resources>
