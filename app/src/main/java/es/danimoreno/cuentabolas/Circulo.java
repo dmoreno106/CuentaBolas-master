@@ -98,6 +98,19 @@ public class Circulo implements Parcelable {
      parcel.writeInt(velocidadX);
      parcel.writeInt(velocidadY);
      parcel.writeInt(color);
+     parcel.writeInt(RADIO);
+    }
+
+    @Override
+    public String toString() {
+        return "Circulo{" +
+                "posX=" + posX +
+                ", posY=" + posY +
+                ", velocidadX=" + velocidadX +
+                ", velocidadY=" + velocidadY +
+                ", color=" + color +
+                ", RADIO=" + RADIO +
+                '}';
     }
 }
 

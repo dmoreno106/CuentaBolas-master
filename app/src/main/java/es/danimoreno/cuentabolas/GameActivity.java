@@ -14,8 +14,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        int nBolas=getIntent().getIntExtra("nBolas",0);
-        int velocidad=getIntent().getIntExtra("velocidad",0);
          game=findViewById(R.id.game);
         difficulty = getIntent().getIntExtra("difficulty", 0);
         game.setContext(this);

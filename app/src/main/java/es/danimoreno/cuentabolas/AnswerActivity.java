@@ -16,24 +16,37 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class AnswerActivity extends AppCompatActivity {
-    private int difficulty;
+     int difficulty;
     private boolean resultado;
     private Button btAceptar;
     private EditText etCuantas, etAzul, etRojo, etVerde, etMagenta;
     private Context context;
     private TextView lbAzul, lbRojo, lbVerde, lbMagenta;
-
+    private int nballs;
     int azul = 0, rojo = 0, verde = 0, magenta = 0;
 
-    private ArrayList<Circulo> balls;
+    public static ArrayList<Circulo> balls=new ArrayList<>();
     MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
+
+        Bundle bundle =getIntent().getExtras();
         context=this;
+
+        difficulty = getIntent().getIntExtra("difficulty",0);
+        Log.v("xyzyx",String.valueOf(difficulty));
+       nballs = getIntent().getIntExtra("nBalls",1);
+       for (int i=1 ;i<=nballs;i++){
+           Circulo circulo= (Circulo) bundle.get(String.valueOf(i));
+          // Log.v("xyzyx",circulo.toString());
+           balls.add(circulo);
+       }
+
       initialize();
+       cuentaColores();
     }
 
 
@@ -45,26 +58,32 @@ public class AnswerActivity extends AppCompatActivity {
 
         etCuantas=findViewById(R.id.etCuantas);
         btAceptar=findViewById(R.id.btAceptar);
-        btAceptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(difficulty>1){
-                resultado=
-                        Integer.parseInt(etAzul.getText().toString())==azul &&
-                        Integer.parseInt(etRojo.getText().toString())==rojo &&
-                        Integer.parseInt(etMagenta.getText().toString())==magenta &&
-                        Integer.parseInt(etVerde.getText().toString())==verde;
-                }else {
-                    resultado = (Integer.parseInt(etCuantas.getText().toString())
-                            == balls.size());
+
+        btAceptar.setOnClickListener(view -> {
+            if(difficulty>1){
+                if(etAzul.getText().toString().isEmpty()||etRojo.getText().toString().isEmpty()||etVerde.getText().toString().isEmpty()||etMagenta.getText().toString().isEmpty()){
+                    resultado=false;
+                }else{
+                    resultado=
+                            Integer.parseInt(etAzul.getText().toString())==azul &&
+                                    Integer.parseInt(etRojo.getText().toString())==rojo &&
+                                    Integer.parseInt(etMagenta.getText().toString())==magenta &&
+                                    Integer.parseInt(etVerde.getText().toString())==verde;
                 }
-                Intent intent = new Intent(context, ResultadoActivity.class);
-                intent.putExtra("resultado", resultado);
-                intent.putExtra("difficulty", difficulty);
-                Log.v("jamaica", Boolean.toString(resultado));
-                mediaPlayer.stop();
-                startActivity(intent);
+
+            }else {
+
+                if(etCuantas.getText().toString().isEmpty()){
+                    resultado=false;
+                }else{
+                    resultado = (Integer.parseInt(etCuantas.getText().toString()) == nballs);
+                }
             }
+            Intent intent = new Intent(context, ResultadoActivity.class);
+            intent.putExtra("resultado", resultado);
+            intent.putExtra("difficulty", difficulty);
+            mediaPlayer.stop();
+            startActivity(intent);
         });
         if(difficulty>1) {
         lbAzul = findViewById(R.id.tvAzul);
@@ -85,6 +104,7 @@ public class AnswerActivity extends AppCompatActivity {
         lbRojo.setVisibility(View.VISIBLE);
         lbVerde.setVisibility(View.VISIBLE);
         lbMagenta.setVisibility(View.VISIBLE);
+        etCuantas.setVisibility(View.GONE);
         }
     }
 

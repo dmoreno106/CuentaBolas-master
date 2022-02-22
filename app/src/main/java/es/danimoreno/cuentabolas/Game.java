@@ -9,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -17,7 +18,8 @@ import java.util.Random;
 public class Game extends View {
 
     private  Paint text;
-    private int nBolas,velocidadX,velocidadY,difficulty,centroX,centroY;
+    private int nBolas,velocidadX,velocidadY,centroX,centroY;
+    public int difficulty=0;
     private int RADIO=60;
     private int textPosition=getHeight();
     private Context context;
@@ -169,9 +171,7 @@ public class Game extends View {
             pintaBolas(c);
 
         } else {
-            String sorry = "Critical Error";
-            text.setTextSize(50);
-            c.drawText(sorry, centroX-200, centroY, text);
+            Log.v("xyzyxz","Error");
         }
         postInvalidateDelayed(1);
     }
@@ -181,9 +181,11 @@ public class Game extends View {
         intent.putExtra("nBalls", balls.size());
         intent.putExtra("difficulty", difficulty);
 
+            Log.v("xyzyx",String.valueOf(difficulty));
             int contador=1;
             for (Circulo circulo:balls) {
                 intent.putExtra(String.valueOf(contador), (Parcelable) circulo);
+                contador++;
             }
 
 
